@@ -47,7 +47,7 @@ look like, whereas a serialized object tells us what *one* object *does*
 look like. It's an important distinction.
 
 Most of what a modern web API does is gather and serialize objects to be
-pass to the consuming code as a string over HTTP. So how do we do this
+passed to the consuming code as a string over HTTP. So how do we do this
 serialization?
 
 At one time, the standard was XML. XML is a structured, tag-based markup
