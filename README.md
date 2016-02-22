@@ -57,7 +57,7 @@ human-readable way.
 
 An example of serializing a post into XML might be:
 
-```
+```erb
 <post>
   <id>1</id>
   <title>This is a blog post</title>
