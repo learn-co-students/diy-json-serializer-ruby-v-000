@@ -170,7 +170,10 @@ class PostSerializer
     serialized_post += '"id": ' + post.id.to_s + ', '
     serialized_post += '"title": "' + post.title + '", '
     serialized_post += '"description": "' + post.description + '", '
-    serialized_post += '"author": "' + post.author.name + '"'
+
+    # the author association can also be represented in JSON
+    serialized_post += '"author": {'
+    serialized_post += '"name": "' + post.author.name + '"}'
 
     # and end with the close brace
     serialized_post += '}'
@@ -302,7 +305,7 @@ $(function () {
   $(".js-next").on("click", function() {
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
     $.get("/posts/" + nextId + "/post_data", function(data) {
-      $(".authorName").text(data["author"]);
+      $(".authorName").text(data["author"]["name"]);
       $(".postTitle").text(data["title"]);
       $(".postBody").text(data["description"]);
       // re-set the id to current on the link
