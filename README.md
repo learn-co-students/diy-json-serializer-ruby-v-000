@@ -3,7 +3,7 @@
 ## Objectives
 
   1. Understand what JSON is.
-  2. Create and Return simple JSON Objects by hand.
+  2. Create and return simple JSON Objects by hand.
   3. Load those objects with AJAX into HTML.
 
 ## Lesson
@@ -93,7 +93,7 @@ exponentially. Look at the `<authorId>` tag in the example above.
 There's 20 bytes of metadata per one byte of data. Even in a system with
 hundreds of authors, that's an inefficient way of representing things.
 As the Internet grew and the demands on API speed and efficiency,
-especially as SmartPhones came into play over cellular networks, the
+especially as smartphones came into play over cellular networks, the
 size of the data being passed from API to consumer became *important*.
 
 ### JSON
@@ -199,7 +199,7 @@ it:
 Note that we changed to `render json:` - we're still just rendering a
 string, but we need to tell the requestor that it's a properly formatted JSON string, so that we can operate on it with JavaScript. However, it's still a plain-text string.
 
-Now if we browse to `/posts/id/body` (pick an `id` from the `/posts`
+Now if we browse to `/posts/:id/body` (pick an `id` from the `/posts`
 page), we will see our JSON!
 
 **Top-tip:** If you haven't installed [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en) in Chrome, now would be a great time. It helps immensely with reading your JSON and even validates it and gives you errors if there's a problem!
@@ -275,7 +275,7 @@ and get the value for the `"description"` key.
 ### Using JSON To Build The Show Page
 
 Now we want to set up our blog so that we can click a link to see the
-next entry when we're doing reading the current one, but we don't want
+next entry when we're reading the current one, but we don't want
 to have to refresh the page.
 
 We can reuse our `post_data` API, since that's exactly what a `Post`
@@ -320,7 +320,7 @@ Here we grab the `data-id` attribute value, use `parseInt()` so we can
 cast it and add one to it so we can request the *next* post.
 
 After that, it's just a matter of using `$.get()` to hit our `post_data`
-endpoint, and replace the `text` of each par of our show page.
+endpoint, and replace the `text` of each part of our show page.
 
 If we reload and go to our first post, then click `Next`, we get that
 smooth AJAX data refresh we've been looking for.
