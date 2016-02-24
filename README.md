@@ -2,7 +2,7 @@
 
 ## Objectives
 
-  1. Understand what JSON is.
+  1. Explain what JSON is.
   2. Create and return simple JSON Objects by hand.
   3. Load those objects with AJAX into HTML.
 
