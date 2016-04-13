@@ -168,12 +168,12 @@ class PostSerializer
     serialized_post = '{'
 
     serialized_post += '"id": ' + post.id.to_s + ', '
-    serialized_post += '"title": ' + post.title + ', '
-    serialized_post += '"description": ' + post.description + ', '
+    serialized_post += '"title": "' + post.title + '", '
+    serialized_post += '"description": "' + post.description + '", '
 
     # the author association can also be represented in JSON
     serialized_post += '"author": {'
-    serialized_post += '"name": ' + post.author.name + '}'
+    serialized_post += '"name": "' + post.author.name + '"}'
 
     # and end with the close brace
     serialized_post += '}'
@@ -334,5 +334,3 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
-
-<p data-visibility='hidden'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
