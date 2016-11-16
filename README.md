@@ -92,7 +92,7 @@ In addition, XML has the potential to inflate the size of the result
 exponentially. Look at the `<authorId>` tag in the example above.
 There's 20 bytes of metadata per one byte of data. Even in a system with
 hundreds of authors, that's an inefficient way of representing things.
-As the Internet grew and the demands on API speed and efficiency,
+As the Internet grew and the demands on API speed and efficiency increased,
 especially as smartphones came into play over cellular networks, the
 size of the data being passed from API to consumer became *important*.
 
@@ -334,3 +334,5 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
