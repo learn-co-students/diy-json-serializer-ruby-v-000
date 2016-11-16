@@ -218,7 +218,7 @@ serialized `Post`, so let's change the route and action to `post_data`:
 # ...
   def post_data
     post = Post.find(params[:id])
-    render plain: PostSerializer.serialize(post)
+    render json: PostSerializer.serialize(post)
 ```
 
 ### Consuming JSON From The API
@@ -334,3 +334,5 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
