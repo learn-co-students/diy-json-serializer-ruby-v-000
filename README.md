@@ -126,7 +126,7 @@ improvement in size, which, when stacked up against your mobile data
 plan, means 25% more times you get to obsessively check your Facebook
 likes.
 
-![snap](http://giphy.com/gifs/reaction-oh-snap-im-done-10zi9Pi3iVtX7W)
+![snap](https://media.giphy.com/media/10zi9Pi3iVtX7W/giphy.gif)
 
 The other great benefit of JSON is the structure. It's just a
 dictionary. A set of key-value pairs. And accessing the values of a
@@ -334,3 +334,5 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
