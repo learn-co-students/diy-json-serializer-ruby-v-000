@@ -130,7 +130,7 @@ likes.
 
 The other great benefit of JSON is the structure. It's just a
 dictionary. A set of key-value pairs. And accessing the values of a
-dictionary is *super easy* compared to transversing the nodes of a
+dictionary is *super easy* compared to traversing the nodes of a
 tag-based document. We do it all the time with Ruby hashes. Not only is
 it more efficient, but it's also a function that's native to the
 language, rather than needing to build or use a library for parsing XML.
@@ -334,3 +334,5 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
