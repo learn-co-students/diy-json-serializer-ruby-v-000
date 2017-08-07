@@ -92,7 +92,7 @@ In addition, XML has the potential to inflate the size of the result
 exponentially. Look at the `<authorId>` tag in the example above.
 There's 20 bytes of metadata per one byte of data. Even in a system with
 hundreds of authors, that's an inefficient way of representing things.
-As the Internet grew and the demands on API speed and efficiency,
+As the Internet grew and the demands on API speed and efficiency increased,
 especially as smartphones came into play over cellular networks, the
 size of the data being passed from API to consumer became *important*.
 
