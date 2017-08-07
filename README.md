@@ -126,7 +126,7 @@ improvement in size, which, when stacked up against your mobile data
 plan, means 25% more times you get to obsessively check your Facebook
 likes.
 
-![snap](http://giphy.com/gifs/reaction-oh-snap-im-done-10zi9Pi3iVtX7W)
+![snap](https://media.giphy.com/media/10zi9Pi3iVtX7W/giphy.gif)
 
 The other great benefit of JSON is the structure. It's just a
 dictionary. A set of key-value pairs. And accessing the values of a
