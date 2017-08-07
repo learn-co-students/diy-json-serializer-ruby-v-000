@@ -6,7 +6,8 @@
   2. Create and return simple JSON Objects by hand.
   3. Load those objects with AJAX into HTML.
 
-## Lesson
+## Overview
+This is a code-along. [Manually fork and clone the repository on GitHub](help.learn.co/workflow-tips/github/how-to-manually-open-a-lab) to follow along.
 
 Continuing with our blog application, we'll be improving our blog post
 API to provide more structure and more efficient data access. Make sure
