@@ -260,7 +260,7 @@ response JSON.
 $(function () {
   $(".js-more").on('click', function() {
     var id = $(this).data("id");
-    $.get("/posts/" + id + "/post_data", function(data) {
+    $.getJSON("/posts/" + id + "/post_data", function(data) {
       // Replace text of body-id div
       $("#body-" + id).html(data["description"]);
     });
@@ -270,7 +270,7 @@ $(function () {
 ```
 
 As you can see, we can access the JSON just like any other dictionary,
-and get the value for the `"description"` key.
+and get the value for the `"description"` key.  But first, we have to tell jQuery to expect to receive JSON data by calling `$.getJSON()` instead of `$.get()`. Otherwise, jQuery will treat `data` as a string, and `data["description"]` will return undefined.
 
 ### Using JSON To Build The Show Page
 
@@ -304,7 +304,7 @@ Okay, now let's add the JavaScript to handle this.
 $(function () {
   $(".js-next").on("click", function() {
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-    $.get("/posts/" + nextId + "/post_data", function(data) {
+    $.getJSON("/posts/" + nextId + "/post_data", function(data) {
       $(".authorName").text(data["author"]["name"]);
       $(".postTitle").text(data["title"]);
       $(".postBody").text(data["description"]);
@@ -334,3 +334,5 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
