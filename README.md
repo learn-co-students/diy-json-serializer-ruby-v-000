@@ -7,7 +7,7 @@
   3. Load those objects with AJAX into HTML.
 
 ## Overview
-This is a code-along. [Manually fork and clone the repository on GitHub](help.learn.co/workflow-tips/github/how-to-manually-open-a-lab) to follow along.
+This is a code-along. [Manually fork and clone the repository on GitHub](http://help.learn.co/workflow-tips/github/how-to-manually-open-a-lab) to follow along.
 
 Continuing with our blog application, we'll be improving our blog post
 API to provide more structure and more efficient data access. Make sure
