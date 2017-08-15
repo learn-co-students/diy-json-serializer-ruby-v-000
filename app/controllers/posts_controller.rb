@@ -21,14 +21,22 @@ class PostsController < ApplicationController
   def edit
   end
 
+  def post_data
+    raise params.inspect
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+
+  end
+
+
   def update
     @post.update(post_params)
     redirect_to post_path(@post)
   end
 
-  def post_data
+ def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
 
 private
