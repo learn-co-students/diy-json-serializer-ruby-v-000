@@ -1,4 +1,5 @@
 tmp
-*.sqlite
+*.sqlite3
 *.cache
 log
+.rspec
