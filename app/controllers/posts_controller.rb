@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :post_data]
 
   def index
     @posts = Post.all
@@ -29,6 +29,10 @@ class PostsController < ApplicationController
   def post_data
     post = Post.find(params[:id])
     render plain: post.description
+  end
+
+  def post_data
+    render json: PostSerializer.serialize(@post)
   end
 
 private
