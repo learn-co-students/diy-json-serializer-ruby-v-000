@@ -13,4 +13,10 @@
 class Post < ActiveRecord::Base
   belongs_to :author
 
+
+    def name=(name)
+      self.build_author(:name => name)
+      self.save
+      self
+    end
 end
