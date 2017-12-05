@@ -14,4 +14,5 @@ class PostSerializer
 
     #end with close brace
     serialized_post += '}'
+  end
 end
