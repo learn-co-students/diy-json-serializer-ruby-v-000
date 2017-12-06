@@ -1,3 +1,27 @@
-<div><%= @post.author.name %></div>
-<h1><%= @post.title %></h1>
-<p><%= @post.description %></p>
+<!-- We need to update the HTML part of our template with some metadata we
+can use to identify the different elements, and add our Next link. -->
+
+<div class="authorName"><%= @post.author.name %></div>
+<!-- Note that we are using data-id on the <a>. We'll need to keep that
+updated so that we know what post to request next. -->
+<a href="#" class="js-next" data-id="<%= @post.id %>">Next...</a>
+<h1 class="postTitle"><%= @post.title %></h1>
+<p class="postBody"><%= @post.description %></p>
+
+
+<!-- Okay, now let's add the JavaScript to handle this. -->
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function() {
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.getJSON("/posts/" + nextId + "/post_data", function(data) {
+      $(".authorName").text(data["author"]["name"]);
+      $(".postTitle").text(data["title"]);
+      $(".postBody").text(data["description"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
+    });
+  });
+});
+</script>
