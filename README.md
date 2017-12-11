@@ -2,9 +2,9 @@
 
 ## Objectives
 
-  1. Explain what JSON is.
-  2. Create and return simple JSON Objects by hand.
-  3. Load those objects with AJAX into HTML.
+  1. Explain what JSON is
+  2. Create and return simple JSON Objects by hand
+  3. Load those objects with AJAX into HTML
 
 ## Overview
 This is a code-along. [Manually fork and clone the repository on GitHub](http://help.learn.co/workflow-tips/github/how-to-manually-open-a-lab) to follow along.
