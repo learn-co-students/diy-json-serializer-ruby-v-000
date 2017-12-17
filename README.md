@@ -16,7 +16,7 @@ to run `rake db:seed` to set up some starting data!
 Last time, we created an endpoint for the single piece of data we wanted
 to access. That worked well enough, but doesn't scale. If we want to use
 AJAX to get all the data from a blog post, we'd be creating so many
-endpoints, and making so many GET requests.
+endpoints, and making so many GET rssequests.
 
 What we really need is one endpoint to make one request and get back
 structured data representing our blog post.
