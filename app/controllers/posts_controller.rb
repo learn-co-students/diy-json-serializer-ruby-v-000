@@ -5,6 +5,11 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def show
   end
 
