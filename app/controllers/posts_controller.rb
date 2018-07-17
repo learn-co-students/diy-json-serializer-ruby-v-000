@@ -12,10 +12,20 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def body
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def create
     @post = Post.create(post_params)
     @post.save
     redirect_to post_path(@post)
+  end
+
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
   end
 
   def edit
