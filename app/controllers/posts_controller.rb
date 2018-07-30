@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    set_post
   end
 
   def new
@@ -29,6 +30,11 @@ class PostsController < ApplicationController
   def post_data
     post = Post.find(params[:id])
     render plain: post.description
+  end
+
+  def post_data
+    set_post
+    render :json => PostSerializer.serialize(@post)
   end
 
 private
