@@ -6,10 +6,13 @@
 $(function () {
   $(".js-more").on('click', function() {
     var id = $(this).data("id");
-    $.get("/posts/" + id + "/body", function(data) {
+    $.getJSON("/posts/" + id + "/post_data", function(data) {
       // Replace text of body-id div
-      $("#body-" + id).text(data);
+      $("#body-" + id).html(data["description"]);
     });
   });
 });
 </script>
+
+
+<!-- As you can see, we can access the JSON just like any other dictionary, and get the value for the "description" key. But first, we have to tell jQuery to expect to receive JSON data by calling $.getJSON() instead of $.get(). Otherwise, jQuery will treat data as a string, and data["description"] will return undefined. -->
