@@ -1,3 +1,19 @@
-<div><%= @post.author.name %></div>
-<h1><%= @post.title %></h1>
-<p><%= @post.description %></p>
+<div class="author_name"><%= @post.author.name %></div>
+<a href="#" class="js-next" data-id="<%=@post.id%>">Next Post</a>
+<h1 class="post_title"><%= @post.title %></h1>
+<p class="post_description"><%= @post.description %></p>
+
+<script type="text/javascript">
+  $(function(){
+    debugger
+    $(".js-next").on('click', function(){
+      var id = parseInt($(".js-next").attr("data-id")) + 1
+      $.get("/posts/" + id + "/post_data", function(data){
+        $(".author_name").text(data["author"]["name"])
+        $(".post_title").text(data["title"])
+        $(".post_description").text(data["description"])
+        $(".js-next").attr("data-id", data["id"])
+      })
+    })
+  })
+</script>
