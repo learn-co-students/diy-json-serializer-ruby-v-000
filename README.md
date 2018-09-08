@@ -2,55 +2,59 @@
 
 ## Objectives
 
-1.  Explain what JSON is.
-2.  Create and return simple JSON Objects by hand.
-3.  Load those objects with AJAX into HTML.
+  1. Explain what JSON is.
+  2. Create and return simple JSON Objects by hand.
+  3. Load those objects with AJAX into HTML.
 
 ## Overview
+This is a code-along. [Manually fork and clone the repository on GitHub](http://help.learn.co/workflow-tips/github/how-to-manually-open-a-lab) to follow along.
 
-This is a code-along. [Manually fork and clone the repository on GitHub][repo]
-to follow along.
+Continuing with our blog application, we'll be improving our blog post
+API to provide more structure and more efficient data access. Make sure
+to run `rake db:seed` to set up some starting data!
 
-Continuing with our blog application, we'll be improving our blog post API to
-provide more structure and more efficient data access. Make sure to run `rake db:seed` to set up some starting data!
+Last time, we created an endpoint for the single piece of data we wanted
+to access. That worked well enough, but doesn't scale. If we want to use
+AJAX to get all the data from a blog post, we'd be creating so many
+endpoints, and making so many GET requests.
 
-Last time, we created an endpoint for the single piece of data we wanted to
-access. That worked well enough, but doesn't scale. If we want to use AJAX to
-get all the data from a blog post, we'd be creating so many endpoints, and
-making so many GET requests.
+What we really need is one endpoint to make one request and get back
+structured data representing our blog post.
 
-What we really need is one endpoint to make one request and get back structured
-data representing our blog post.
+### Serialization
 
-#### Serialization
+If we're directly accessing a post from our web browser, the answer is
+simple. The controller renders a template that contains HTML and the
+data we need.
 
-If we're directly accessing a post from our web browser, the answer is simple.
-The controller renders a template that contains HTML and the data we need.
+We could still do this for an API endpoint, but then that HTML would
+probably get in our way. We want the data, not the formatting. This,
+like so many things, comes back to Separation of Concerns. An API
+endpoint is only concerned with returning the data needed; it's up to
+the API consumer, in this case our AJAX call, to decide how to display
+it.
 
-We could still do this for an API endpoint, but then that HTML would probably
-get in our way. We want the data, not the formatting. This, like so many things,
-comes back to Separation of Concerns. An API endpoint is only concerned with
-returning the data needed; it's up to the API consumer, in this case our AJAX
-call, to decide how to display it.
+This is where **serialization** comes in. Serialization is the process
+by which we take "executable" code, in our case a Ruby object, and
+represent it as a string that can be consumed anywhere (remember, the
+Internet is just strings) and then reconstructed back into usable code.
 
-This is where **serialization** comes in. Serialization is the process by which
-we take "executable" code, in our case a Ruby object, and represent it as a
-string that can be consumed anywhere (remember, the Internet is just strings)
-and then reconstructed back into usable code.
+Remember that a Ruby *object* is an instance of a *class*,
+meaning it has been initialized and is running in memory. Serializing an
+object retains the *state*, or current values of all the object's
+attributes, when turning it into a string. This differs from a class
+definition because the class definition tells us what *any* object *could*
+look like, whereas a serialized object tells us what *one* object *does*
+look like. It's an important distinction.
 
-Remember that a Ruby _object_ is an instance of a _class_, meaning it has been
-initialized and is running in memory. Serializing an object retains the _state_,
-or current values of all the object's attributes, when turning it into a string.
-This differs from a class definition because the class definition tells us what
-_any_ object _could_ look like, whereas a serialized object tells us what _one_
-object _does_ look like. It's an important distinction.
-
-Most of what a modern web API does is gather and serialize objects to be passed
-to the consuming code as a string over HTTP. So how do we do this serialization?
+Most of what a modern web API does is gather and serialize objects to be
+passed to the consuming code as a string over HTTP. So how do we do this
+serialization?
 
 At one time, the standard was XML. XML is a structured, tag-based markup
-language similar to HTML. The tags are specified by the API provider and ideally
-describe the object being serialized in an organized, human-readable way.
+language similar to HTML. The tags are specified by the API provider and
+ideally describe the object being serialized in an organized,
+human-readable way.
 
 An example of serializing a post into XML might be:
 
@@ -66,30 +70,32 @@ An example of serializing a post into XML might be:
 </post>
 ```
 
-If we look at that, it's pretty easy to figure out what's going on, right? When
-the web was first becoming more dynamic, and web services/APIs were in their
-nascent stages, XML was the lingua franca of inter-system communication. That's
-where **AJAX** came from: _Asynchronous JavaScript and XML_.
+If we look at that, it's pretty easy to figure out what's going on,
+right? When the web was first becoming more dynamic, and web
+services/APIs were in their nascent stages, XML was the lingua franca of
+inter-system communication. That's where **AJAX** came from:
+*Asynchronous JavaScript and XML*.
 
-So this is a `Post` instance serialized to XML. The XML describes the state of
-the object, and we can find where to pull out individual bits of data, or even
-reconstruct the object in memory on a new system. In this way, XML was a great
-tool.
+So this is a `Post` instance serialized to XML. The XML describes the
+state of the object, and we can find where to pull out individual bits
+of data, or even reconstruct the object in memory on a new system. In
+this way, XML was a great tool.
 
-But XML had its problems as well. Just as browsers have a hard time agreeing on
-how to parse tag-based HTML, parsing XML is a chore. An XML parser has to
-essentially _read_ through a document, finding the start and end tags of nodes
-and deciding what to do with the data. Searching XML documents with
-[XPATH][xpath] is cumbersome, and constructing an
-XML document can be a tedious exercise in string building and tag matching.
+But XML had its problems as well. Just as browsers have a hard time
+agreeing on how to parse tag-based HTML, parsing XML is a chore. An XML
+parser has to essentially *read* through a document, finding the start
+and end tags of nodes and deciding what to do with the data. Searching
+XML documents with [XPATH](https://en.wikipedia.org/wiki/XPath) is
+cumbersome, and constructing an XML document can be a tedious exercise
+in string building and tag matching.
 
 In addition, XML has the potential to inflate the size of the result
-exponentially. Look at the `<authorId>` tag in the example above. There's 20
-bytes of metadata per one byte of data. Even in a system with hundreds of
-authors, that's an inefficient way of representing things. As the Internet grew
-and the demands on API speed and efficiency increased, especially as smartphones
-came into play over cellular networks, the size of the data being passed from
-API to consumer became _important_.
+exponentially. Look at the `<authorId>` tag in the example above.
+There's 20 bytes of metadata per one byte of data. Even in a system with
+hundreds of authors, that's an inefficient way of representing things.
+As the Internet grew and the demands on API speed and efficiency increased,
+especially as smartphones came into play over cellular networks, the
+size of the data being passed from API to consumer became *important*.
 
 ### JSON
 
@@ -125,7 +131,7 @@ likes.
 
 The other great benefit of JSON is the structure. It's just a
 dictionary. A set of key-value pairs. And accessing the values of a
-dictionary is _super easy_ compared to traversing the nodes of a
+dictionary is *super easy* compared to traversing the nodes of a
 tag-based document. We do it all the time with Ruby hashes. Not only is
 it more efficient, but it's also a function that's native to the
 language, rather than needing to build or use a library for parsing XML.
@@ -137,7 +143,7 @@ a Rails app, so we need to find a way to serialize our Ruby objects to
 JSON.
 
 We need to return JSON from our controller, but it's not the
-controller's _responsibility_ to serialize objects, so we'll start fresh
+controller's *responsibility* to serialize objects, so we'll start fresh
 with a new class.
 
 Create a `app/serializers` directory, and add a `post_serializer.rb`
@@ -150,7 +156,7 @@ big Rails application you might find folders like `app/services`,
 `app/serializers`, `app/decorators`, and others. This is just one of
 many ways to keep your project organized.
 
-Inside, we need to _serialize_ a `Post` object. Again, serialization
+Inside, we need to *serialize* a `Post` object. Again, serialization
 is just turning the object into a string, in this case a JSON string. We
 know how to build strings, so let's get to it.
 
@@ -197,9 +203,7 @@ string, but we need to tell the requestor that it's a properly formatted JSON st
 Now if we browse to `/posts/:id/body` (pick an `id` from the `/posts`
 page), we will see our JSON!
 
-**Top-tip:** If you haven't installed [JSONView][jsonview] in Chrome, now would be a great
-time. It helps immensely with reading your JSON and even validates it and gives
-you errors if there's a problem!
+**Top-tip:** If you haven't installed [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en) in Chrome, now would be a great time. It helps immensely with reading your JSON and even validates it and gives you errors if there's a problem!
 
 Now, `body` isn't really accurate anymore, since we're now returning a
 serialized `Post`, so let's change the route and action to `post_data`:
@@ -218,13 +222,14 @@ serialized `Post`, so let's change the route and action to `post_data`:
     render json: PostSerializer.serialize(post)
 ```
 
-#### Consuming JSON From The API
+### Consuming JSON From The API
 
-Now what happens if we reload our `/posts` page and try our `More` button?
+Now what happens if we reload our `/posts` page and try our `More`
+button?
 
-Nothing! Or, more specifically, if we look in the Chrome JavaScript console,
-we'll see a `404` error because we changed the route to the resource. So let's
-fix that first.
+Nothing! Or, more specifically, if we look in the Chrome JavaScript
+console, we'll see a `404` error because we changed the route to the
+resource. So let's fix that first.
 
 ```erb
 # posts/index.html.erb
@@ -243,10 +248,11 @@ $(function () {
 </script>
 ```
 
-Okay, now if we reload and try again, we can see that our button now replaces
-the truncated body with the JSON. This makes sense. Before we were just
-returning a single value, but now we have a whole object. So we'll need to alter
-the code to just pull the `description` from the response JSON.
+Okay, now if we reload and try again, we can see that our button now
+replaces the truncated body with the JSON. This makes sense. Before we
+were just returning a single value, but now we have a whole object. So
+we'll need to alter the code to just pull the `description` from the
+response JSON.
 
 ```erb
 # posts/index.html.erb
@@ -264,13 +270,10 @@ $(function () {
 </script>
 ```
 
-As you can see, we can access the JSON just like any other dictionary, and get
-the value for the `"description"` key. But first, we have to tell jQuery to
-expect to receive JSON data by calling `$.getJSON()` instead of `$.get()`.
-Otherwise, jQuery will treat `data` as a string, and `data["description"]` will
-return undefined.
+As you can see, we can access the JSON just like any other dictionary,
+and get the value for the `"description"` key.  But first, we have to tell jQuery to expect to receive JSON data by calling `$.getJSON()` instead of `$.get()`. Otherwise, jQuery will treat `data` as a string, and `data["description"]` will return undefined.
 
-#### Using JSON To Build The Show Page
+### Using JSON To Build The Show Page
 
 Now we want to set up our blog so that we can click a link to see the
 next entry when we're reading the current one, but we don't want
@@ -315,7 +318,7 @@ $(function () {
 ```
 
 Here we grab the `data-id` attribute value, use `parseInt()` so we can
-cast it and add one to it so we can request the _next_ post.
+cast it and add one to it so we can request the *next* post.
 
 After that, it's just a matter of using `$.get()` to hit our `post_data`
 endpoint, and replace the `text` of each part of our show page.
@@ -332,9 +335,5 @@ At least until we get to the last post.
 We've learned about serializing objects as strings, and the advantages
 of using JSON. We've also built our own JSON serializer, and used it and
 AJAX to load blog posts without reloading the page.
-
-[repo]: http://help.learn.co/workflow-tips/github/how-to-manually-open-a-lab
-[jsonview]: https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en
-[xpath]: https://en.wikipedia.org/wiki/XPath
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/diy-json-serializer-ruby'>DIY JSON Serializer</a> on Learn.co and start learning to code for free.</p>
