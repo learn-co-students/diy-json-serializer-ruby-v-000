@@ -18,6 +18,11 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def edit
   end
 
