@@ -3,13 +3,13 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-$(function () {
-  $(".js-more").on('click', function() {
-    var id = $(this).data("id");
-    $.get("/posts/" + id + "/body", function(data) {
-      // Replace text of body-id div
-      $("#body-" + id).text(data);
+  $(function () {
+    $(".js-more").on('click', function() {
+      var id = $(this).data("id");
+      $.getJSON("/posts/" + id + "/post_data", function(data) {
+        $("#body-" + id).html(data["description"]);
+        console.log(typeof data);
+      });
     });
   });
-});
 </script>
