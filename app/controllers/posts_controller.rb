@@ -1,5 +1,10 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
+  
+  # def body
+  #   post = Post.find(params[:id])
+  #   render json: PostSerializer.serialize(post)
+  # end
 
   def index
     @posts = Post.all
@@ -13,7 +18,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.create(post_params)
+    @post = Post.new(post_params)
+    @author = Author.find_or_create_by_name(params["post"]["author"])
+    @post.author_id = @author.id
     @post.save
     redirect_to post_path(@post)
   end
@@ -28,7 +35,7 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
 
 private
@@ -38,7 +45,7 @@ private
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def post_params
-    params.require(:post).permit(:title, :description)
+  def post_params 
+    params.require(:post).permit(:title, :description, :author_id)
   end
 end
