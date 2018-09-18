@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'navigate' do
   before do
-    @post = Post.create(title: "My Post", description: "My post desc", name: "Steven")
+    @post = Post.create(title: "My Post", description: "My post desc", author_id: 1)
   end
 
   it 'shows the title on the show page in a h1 tag' do
@@ -16,10 +16,12 @@ describe 'navigate' do
   end
 
   it 'shows the description on the show page in a p tag' do
+
     visit post_path(@post)
+
     expect(page).to have_css("p", text: "My post desc")
+
   end
-end
 
 describe 'form' do
   it 'shows a new form that submits content and redirects and prints out params' do
@@ -45,4 +47,3 @@ describe 'form' do
 
     expect(page).to have_content("My edit")
   end
-end
