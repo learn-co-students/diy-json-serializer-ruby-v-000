@@ -1,3 +1,4 @@
+require 'pry'
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
@@ -12,6 +13,11 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def create
     @post = Post.create(post_params)
     @post.save
@@ -24,11 +30,6 @@ class PostsController < ApplicationController
   def update
     @post.update(post_params)
     redirect_to post_path(@post)
-  end
-
-  def post_data
-    post = Post.find(params[:id])
-    render plain: post.description
   end
 
 private
