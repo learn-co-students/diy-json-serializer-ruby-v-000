@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    
   end
 
   def new
@@ -18,6 +19,11 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    render plain: post.description
+  end
+
   def edit
   end
 
@@ -28,8 +34,9 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
