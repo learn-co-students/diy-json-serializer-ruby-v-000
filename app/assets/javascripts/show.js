@@ -1,14 +1,8 @@
-<%if @post.author%>
-  <div class="authorName"><%= @post.author.name %></div>
-<%end%>
-
-<a href="#" class="js-next" data-id="<%=@post.id%>">Next...</a>
-<h1 class="postTitle"><%= @post.title %></h1>
-<p class="postBody"><%= @post.description %></p>
-
-<!-- <script type="text/javascript" charset="utf-8">
 $(function () {
-  $(".js-next").on("click", function() {
+  $(".js-next").on("click", function(e) {
+    // you must stop the link from firing
+    e.preventDefault()
+    // you have to turn the id into a integer, since it's a string when it's sent over
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
     $.getJSON("/posts/" + nextId + "/post_data", function(data) {
       $(".authorName").text(data["author"]["name"]);
@@ -19,4 +13,3 @@ $(function () {
     });
   });
 });
-</script> -->
