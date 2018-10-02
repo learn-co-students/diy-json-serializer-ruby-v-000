@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = set_post
   end
 
   def new
@@ -19,6 +20,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    set_post
   end
 
   def update
