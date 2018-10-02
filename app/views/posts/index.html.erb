@@ -6,10 +6,9 @@
 $(function () {
   $(".js-more").on('click', function() {
     var id = $(this).data("id");
-    debugger;
     $.getJSON("/posts/" + id + "/post_data", function(data) {
       // Replace text of body-id div
-      $("#body-" + id).text(data['description']);
+      $("#body-" + id).text(data["description"]);
     });
   });
 });

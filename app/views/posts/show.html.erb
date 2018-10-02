@@ -1,3 +1,19 @@
-<div><%= @post.author.name %></div>
-<h1><%= @post.title %></h1>
-<p><%= @post.description %></p>
+<div class="authorName"><%= @post.author.name %></div>
+<a href="#" class="js-next" data-id="<%= @post.id %>">Next</a>
+<h1 class="postTitle"><%= @post.title %></h1>
+<p class="postDescription"><%= @post.description %></p>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    $(".js-next").on('click', function(e){
+      var nextID = $(this).data("id") + 1
+      $.getJSON("/posts/" + nextID + "/post_data", function(json) {
+        $(".authorName").text(json['author']['name'])
+        $(".postTitle").text(json['title'])
+        $(".postDescription").text(json['description'])
+        $(".js-next").data('id', json['id'])
+      })
+      e.preventDefault();
+    })
+  })
+</script>
