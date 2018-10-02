@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = set_post
   end
 
   def new
@@ -19,6 +20,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    set_post
   end
 
   def update
@@ -28,7 +30,7 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
 
 private
