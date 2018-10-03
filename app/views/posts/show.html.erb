@@ -1,3 +1,30 @@
-<div><%= @post.author.name %></div>
-<h1><%= @post.title %></h1>
-<p><%= @post.description %></p>
+<div class="authorName"><%= @post.author.name %></div>
+
+<a href="#" class="js-next" data-id="<%=@post.id%>">Next...</a>
+
+<h1 class="postTitle"><%= @post.title %></h1>
+<p class="postBody"><%= @post.description %></p>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function(event) {
+    // need below code to stop propagation
+    event.stopPropagation();
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    // console.log(nextId);
+    // console.log("/posts/" + nextId + "/post_data");
+    // below code is the link to get the JSON values
+    var jsonLink = "/posts/" + nextId + "/post_data"
+    $.getJSON(jsonLink, function(data) {
+      $(".authorName").text(data["author"]["name"]);
+      $(".postTitle").text(data["title"]);
+      $(".postBody").text(data["description"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
+      // below code is if you want to change the value of href attribute.
+      //console.log(jsonLink);
+      //$(".js-next").attr("href", jsonLink);
+    });
+  });
+});
+</script>
