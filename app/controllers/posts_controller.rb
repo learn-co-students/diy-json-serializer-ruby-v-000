@@ -13,7 +13,9 @@ class PostsController < ApplicationController
   end
 
   def create
+    @author = Author.find_or_create_by(params[:author_name])
     @post = Post.create(post_params)
+    @post.author_id = @author.id
     @post.save
     redirect_to post_path(@post)
   end
@@ -22,13 +24,17 @@ class PostsController < ApplicationController
   end
 
   def update
+    @author = Author.find_or_create_by(params[:author_name])
+    @post.author_id = @author.id
     @post.update(post_params)
     redirect_to post_path(@post)
   end
 
+  #API endpoints
+
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
 
 private
