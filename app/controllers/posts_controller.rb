@@ -5,6 +5,11 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def show
   end
 
@@ -13,8 +18,10 @@ class PostsController < ApplicationController
   end
 
   def create
+  #  binding.pry
+    @author = Author.first_or_create(name: params[:post][:author])
     @post = Post.create(post_params)
-    @post.save
+    @post.author = @author
     redirect_to post_path(@post)
   end
 
@@ -26,10 +33,10 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
-  def post_data
-    post = Post.find(params[:id])
-    render plain: post.description
-  end
+  # def post_data
+  #   post = Post.find(params[:id])
+  #   render plain: post.description
+  # end
 
 private
   # Use callbacks to share common setup or constraints between actions.
