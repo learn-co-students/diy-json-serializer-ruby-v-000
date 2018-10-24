@@ -13,15 +13,19 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, id: "title" %>
   </div>
 
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, id: "description" %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <% if params[:action] == "new" %>
+      <%= f.submit "Submit Post" %>
+    <% else %>
+      <%= f.submit "Update Post" %>
+    <% end %>
   </div>
 <% end %>
