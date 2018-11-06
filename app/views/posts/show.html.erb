@@ -1,3 +1,5 @@
-<div><%= @post.author.name %></div>
+<h1><%= @post.author.name if @post.author && @post.author.name %></h1>
+<%= @post.author.hometown if @post.author && @post.author.hometown %>
+
 <h1><%= @post.title %></h1>
 <p><%= @post.description %></p>
