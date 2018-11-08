@@ -8,6 +8,16 @@ class PostsController < ApplicationController
   def show
   end
 
+  def body
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def new
     @post = Post.new
   end
