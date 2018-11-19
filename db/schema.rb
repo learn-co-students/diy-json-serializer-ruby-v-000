@@ -28,4 +28,6 @@ ActiveRecord::Schema.define(version: 20160119185429) do
     t.integer  "author_id"
   end
 
+  add_index "posts", ["author_id"], name: "index_posts_on_author_id"
+
 end
