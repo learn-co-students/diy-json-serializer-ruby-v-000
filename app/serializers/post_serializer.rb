@@ -14,11 +14,4 @@ class PostSerializer
     # and end with the close brace
     serialized_post += '}'
   end
-
-
-
-
-
-
-
 end #ends PostSerializer
