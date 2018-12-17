@@ -28,8 +28,16 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
+
+  def body
+    post = Post.find(params[:id])
+    #rendering a string, but we need to tell the requestor that it is a properly formatted JSON string hence the render json:
+    #do this so we can operate on it with javascript
+    render json: PostSerializer.serialize(post)
+  end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
