@@ -6,11 +6,9 @@
 $(function () {
   $(".js-more").on('click', function() {
     var id = $(this).data("id");
-    // change the URL to the new route
-    $.get("/posts/" + id + "/post_data", function(data) {
+    $.getJSON("/posts/" + id + "/post_data", function(data) {
       // Replace text of body-id div
-      console.log(data)
-      $("#body-" + id).text(data);
+      $("#body-" + id).html(data["description"]);
     });
   });
 });
