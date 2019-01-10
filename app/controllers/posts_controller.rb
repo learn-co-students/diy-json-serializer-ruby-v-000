@@ -28,6 +28,12 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
+    # telling the requestor that it's a properly formatted JSON
+    render json: PostSerializer.serialize(post)
+  end
+
+  def body
+    post = Post.find(params[:id])
     render plain: post.description
   end
 
