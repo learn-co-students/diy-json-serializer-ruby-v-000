@@ -21,7 +21,12 @@
     <%= f.text_field :description %>
   </div>
 
+  <div class="field">
+    <%= f.hidden_field :author_id, value: Author.create(name: "Dan").id %>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit Post" %>
+    <%= f.submit "Update Post"%>
   </div>
 <% end %>
