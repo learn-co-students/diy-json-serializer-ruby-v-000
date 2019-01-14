@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   def show
   end
 
+
   def new
     @post = Post.new
   end
@@ -28,7 +29,7 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
 
 private
@@ -39,6 +40,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :name)
   end
 end
