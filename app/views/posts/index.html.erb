@@ -6,9 +6,25 @@
 $(function () {
   $(".js-more").on('click', function() {
     var id = $(this).data("id");
-    $.get("/posts/" + id + "/body", function(data) {
+    // tell jQuery to expect to receive JSON data, or will treat data as a string, and data["description"] will return undefined
+    $.getJSON("/posts/" + id + "/post_data", function(data) {
       // Replace text of body-id div
-      $("#body-" + id).text(data);
+      $("#body-" + id).html(data["description"]);
+    });
+  });
+});
+</script>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function() {
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.getJSON("/posts/" + nextId + "/post_data", function(data) {
+      $(".authorName").text(data["author"]["name"]);
+      $(".postTitle").text(data["title"]);
+      $(".postBody").text(data["description"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
     });
   });
 });
