@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
   end
 
   def update
@@ -28,7 +29,7 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
 
 private
