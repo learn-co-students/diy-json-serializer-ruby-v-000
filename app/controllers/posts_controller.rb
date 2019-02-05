@@ -12,6 +12,12 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    # render json: PostSerializer.serialize(post)
+    render plain: PostSerializer.serialize(post)
+  end
+
   def create
     @post = Post.create(post_params)
     @post.save
@@ -39,6 +45,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :author_id)
   end
 end
