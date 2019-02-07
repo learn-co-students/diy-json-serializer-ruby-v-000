@@ -37,7 +37,7 @@ This is where **serialization** comes in. Serialization is the process by which
 we take "executable" code, in our case a Ruby object, and represent it as a
 string that can be consumed anywhere (remember, the Internet is just strings)
 and then reconstructed back into usable code.
-
+changed!
 Remember that a Ruby _object_ is an instance of a _class_, meaning it has been
 initialized and is running in memory. Serializing an object retains the _state_,
 or current values of all the object's attributes, when turning it into a string.
