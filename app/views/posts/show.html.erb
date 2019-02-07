@@ -1,3 +1,25 @@
-<div><%= @post.author.name %></div>
-<h1><%= @post.title %></h1>
-<p><%= @post.description %></p>
+<div class="authorName"><%= @post.author.name %></div>
+<a href="#" class="js-next" data-id="<%=@post.id%>">Next...</a>
+<h1 class="postTitle"><%= @post.title %></h1>
+<p class="postBody"><%= @post.description %></p>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function(e) {
+  	e.preventDefault();
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.get("/posts/" + nextId + "/post_data", function(data) {
+      $(".postTitle").text(data["title"]);
+      $(".postBody").text(data["description"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
+    });
+  });
+});
+</script>
+
+<!-- Here we grab the data-id attribute value, use parseInt() so we can cast it and add one to it so we can request the next post.
+
+After that, it's just a matter of using $.getJSON() to hit our post_data endpoint, and replace the text of each part of our show page.
+
+ -->
