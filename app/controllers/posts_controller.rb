@@ -6,11 +6,13 @@ class PostsController < ApplicationController
   end
 
   def show
+     @post = Post.find(params[:id])
   end
 
   def new
     @post = Post.new
   end
+
 
   def create
     @post = Post.create(post_params)
@@ -26,10 +28,13 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
+
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
+
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
