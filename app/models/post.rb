@@ -13,4 +13,9 @@
 class Post < ActiveRecord::Base
   belongs_to :author
 
+  def name=(name)
+    auth = Author.find_or_create_by(name: name)
+    self.author = auth
+  end
+
 end
