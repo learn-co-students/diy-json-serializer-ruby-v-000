@@ -8,8 +8,10 @@ $(function () {
     var id = $(this).data("id");
     $.getJSON("/posts/" + id + "/post_data", function(data) {
       // Replace text of body-id div
-      $("#body-" + id).html(data["description"]);
+      $("#body-" + id).text(data["description"]);
     });
   });
 });
-</script>
+</script><br><br>
+
+<%= link_to "New Post", new_post_path %>
