@@ -27,9 +27,10 @@ class PostsController < ApplicationController
   end
 
   def post_data
-    post = Post.find(params[:id])
-    render plain: post.description
+    post = set_post
+    render json: PostSerializer.serialize(post)
   end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
