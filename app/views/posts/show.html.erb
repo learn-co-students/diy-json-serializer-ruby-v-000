@@ -4,9 +4,11 @@
 <p class="postBody"><%= @post.description %></p>
 <script type="text/javascript" charset="utf-8">
 $(function () {
-  $(".js-next").on("click", function() {
+  $(".js-next").on("click", function(ev) {
+    ev.preventDefault();
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
     $.getJSON("/posts/" + nextId + "/post_data", function(data) {
+        
       $(".authorName").text(data["author"]["name"]);
       $(".postTitle").text(data["title"]);
       $(".postBody").text(data["description"]);
