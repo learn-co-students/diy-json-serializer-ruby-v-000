@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'navigate' do
   before do
-    @post = Post.create(title: "My Post", description: "My post desc", name: "Steven")
+    @post = Post.create(title: "My Post", description: "My post desc")
   end
 
   it 'shows the title on the show page in a h1 tag' do
@@ -21,28 +21,28 @@ describe 'navigate' do
   end
 end
 
-describe 'form' do
-  it 'shows a new form that submits content and redirects and prints out params' do
-    visit new_post_path
+# describe 'form' do
+#   it 'shows a new form that submits content and redirects and prints out params' do
+#     visit new_post_path
 
-    fill_in 'title', with: "My post title"
-    fill_in 'description', with: "My post description"
+#     #fill_in 'title', with: "My post title"
+#     fill_in 'description', with: "My post description"
 
-    click_on "Submit Post"
+#     click_on "Submit Post"
 
-    expect(page).to have_content("My post title")
-  end
+#     expect(page).to have_content("My post title")
+# #   end
 
-  it 'shows a new form that submits content and redirects and prints out params' do
-    @post = Post.create(title: "My Post", description: "My post desc")
+#   it 'shows a new form that submits content and redirects and prints out params' do
+#     @post = Post.create(title: "My Post", description: "My post desc")
 
-    visit edit_post_path(@post)
+#     visit edit_post_path(@post)
 
-    fill_in 'post[title]', with: "My edit"
-    fill_in 'post[description]', with: "My post description"
+#     fill_in 'post[title]', with: "My edit"
+#     fill_in 'post[description]', with: "My post description"
 
-    click_on "Update Post"
+#     click_on "Update Post"
 
-    expect(page).to have_content("My edit")
-  end
-end
+#     expect(page).to have_content("My edit")
+#   end
+#end
