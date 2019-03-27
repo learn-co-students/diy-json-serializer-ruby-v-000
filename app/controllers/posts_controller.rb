@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post= Post.find(params[:id])
+   @post= Post.find(params[:id])
   end
 
   def new
@@ -15,9 +15,12 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create(post_params)
-    @post.save
+    if @post.save
     redirect_to post_path(@post)
+  else 
+    redirect_to posts_path
   end
+end
 
   def edit
   end
@@ -27,14 +30,10 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
-  # def post_data
-  #   post = Post.find(params[:id])
-  #   render plain: post.description
-  # end
-
   def post_data
-    post = Post.find(params[:id])
-    render json: PostSerializer.serialize(post)
+    @post = Post.find(params[:id])
+    render json: PostSerializer.serialize(@post)
+    #render plain: post.description
   end
   
 private

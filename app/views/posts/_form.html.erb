@@ -12,8 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label "title" %><br>
     <%= f.text_field :title %>
+
   </div>
 
   <div class="field">
@@ -22,6 +23,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.label "Submit Post" %><br>
+    <%= f.submit @post.new_record? ? "Submit Post" : "Update Post" %>
   </div>
 <% end %>
