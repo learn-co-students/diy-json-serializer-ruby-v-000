@@ -20,6 +20,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+		@post = Post.find_by_id(params[:id])
   end
 
   def update
@@ -27,12 +28,12 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
-  def post_data
+  def body
     post = Post.find(params[:id])
     render plain: post.description
   end
 
-	def body
+	def post_data
     post = Post.find(params[:id])
     render json: PostSerializer.serialize(post)
   end
