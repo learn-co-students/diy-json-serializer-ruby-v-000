@@ -1,3 +1,4 @@
+require "pry"
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
@@ -28,11 +29,6 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
-  end
-
-  def post_data
-    post = Post.find(params[:id])
     render json: PostSerializer.serialize(post)
   end
 
@@ -44,6 +40,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :name)
   end
 end
