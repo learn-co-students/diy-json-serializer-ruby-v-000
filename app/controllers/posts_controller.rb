@@ -21,6 +21,7 @@ class PostsController < ApplicationController
   def edit
   end
 
+
   def update
     @post.update(post_params)
     redirect_to post_path(@post)
@@ -28,8 +29,9 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
   end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
