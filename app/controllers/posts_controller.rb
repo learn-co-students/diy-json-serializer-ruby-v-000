@@ -1,11 +1,19 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
+  def post_data
+
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def index
     @posts = Post.all
   end
 
   def show
+    #binding.pry
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -26,10 +34,10 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
-  def post_data
-    post = Post.find(params[:id])
-    render plain: post.description
-  end
+#  def post_data
+#    post = Post.find(params[:id])
+#    render plain: post.description
+#  end
 
 private
   # Use callbacks to share common setup or constraints between actions.
@@ -39,6 +47,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :name)
   end
 end
