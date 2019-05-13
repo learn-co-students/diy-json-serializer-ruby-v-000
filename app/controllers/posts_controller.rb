@@ -12,6 +12,11 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def post_data
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
+  end
+
   def create
     @post = Post.create(post_params)
     @post.save
@@ -26,11 +31,6 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
-  def post_data
-    post = Post.find(params[:id])
-    render plain: post.description
-  end
-
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_post
@@ -39,6 +39,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, :author_id)
   end
 end
