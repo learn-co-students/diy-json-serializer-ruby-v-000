@@ -26,9 +26,14 @@ class PostsController < ApplicationController
     redirect_to post_path(@post)
   end
 
+  # def post_data
+  #   post = Post.find(params[:id])
+  #   render plain: post.description
+  # end
+
   def post_data
-    post = Post.find(params[:id])
-    render plain: post.description
+     post = Post.find(params[:id])
+     render json: PostSerializer.serialize(post)
   end
 
 private
@@ -41,4 +46,5 @@ private
   def post_params
     params.require(:post).permit(:title, :description)
   end
+
 end
