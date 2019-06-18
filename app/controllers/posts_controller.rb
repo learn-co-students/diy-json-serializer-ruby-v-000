@@ -28,7 +28,12 @@ class PostsController < ApplicationController
 
   def post_data
     post = Post.find(params[:id])
-    render plain: post.description
+    render json: PostSerializer.serialize(post)
+  end
+
+  def body
+    post = Post.find(params[:id])
+    render json: PostSerializer.serialize(post)
   end
 
 private
@@ -39,6 +44,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :description)
+    params.require(:post).permit(:title, :description, author_attributes: [:name])
   end
 end
