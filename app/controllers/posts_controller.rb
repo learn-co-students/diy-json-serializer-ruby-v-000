@@ -5,21 +5,21 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def new
+    @post = Post.new
+  end
+  
+  def create
+    @post = Post.create(post_params)
+    redirect_to post_path(@post)
+  end
+  
   def show
     @post = Post.find_by(id: params[:id])
   end
 
-  def new
-    @post = Post.new
-  end
-
-  def create
-    @post = Post.create(post_params)
-    @post.save
-    redirect_to post_path(@post)
-  end
-
   def edit
+    @post = Post.find_by(id: params[:id])
   end
 
   def update
