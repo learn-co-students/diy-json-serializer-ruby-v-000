@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -27,6 +28,11 @@ class PostsController < ApplicationController
   end
 
   def post_data
+    post = Post.find(params[:id])
+    render plain: post.description
+  end
+
+  def body
     post = Post.find(params[:id])
     render plain: post.description
   end
