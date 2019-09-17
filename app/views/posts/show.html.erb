@@ -1,2 +1,19 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.description %></p>
+<h1 class="post-title"><%= @post.title %></h1>
+<p class="post-description"><%= @post.description %></p>
+<a href="#" class="js-next" data-id="<%= @post.id %>">Next...</a>
+
+<script type="text/javascript">
+  $(function () {
+    $(".js-next").on('click', function (e) {
+      e.preventDefault();
+
+      var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+      $.getJSON("/posts/" + nextId + "/post_data", function (data) {
+        $(".post-title").text(data["title"]);
+        $(".post-description").text(data["description"]);
+
+        $(".js-next").attr("data-id", data["id"]);
+      });
+    });
+  });
+</script>
